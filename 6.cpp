@@ -20,8 +20,14 @@ void bfs(vector<vector<int>> adjlist,int n){
     }
 }
 
-void dfs(vector<vector<int>> adjlist,int n){
-    
+void dfs(vector<vector<int>> adjlist,int n,vector<int> &ans,int vist[],int node){
+    vist[node] = 1;
+    ans.push_back(node);
+    for(auto i : adjlist[node]){
+        if(!vist[i]){
+            dfs(adjlist,n,ans,vist,i);
+        }
+    }
 }
 
 int main(){
@@ -41,6 +47,12 @@ int main(){
         adjlist[i] = temp;
     }
     bfs(adjlist,n);
-    dfs(adjlist,n);
+    vector<int> ans;
+    int node = 0;
+    int vist[n] = {0};
+    dfs(adjlist,n,ans,vist,node);
+    cout<<endl;
+    cout<<"DFS: ";
+    for(auto i :ans)cout<<i<<" ";
     return 0;
 }
